@@ -10,8 +10,17 @@ if __name__ == '__main__':
     coll = mng_db['parent_reply']
 
 
-    result = coll.find().limit(10)
+#     result = coll.find().limit(10)
+    
+    lastUnit = 0
+    limit = 1000
+    
+#     result = coll.find({"$and": [{"score": {"$gt": 0}}, {"unix_int": {"$gt": 0}}]}).limit(1000).sort({"unix_int": 1})
+    
+    result = coll.find({"$and": [{"score": {"$gt": 0}}, {"unix_int": {"$gt": 0}}]}).limit(1000).sort([("unix_int", 1)])
+
 
     for record in result:
         pprint.pprint(record)
+        break
     

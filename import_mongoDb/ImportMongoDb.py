@@ -82,6 +82,13 @@ class ImportMongoDb():
         except Exception as e:
 #             print('s0 insertion',str(e))
             raise e
+    
+    def sql_read_from_mongoDb(self, lastUnit, limit):
+        # this is getting data from MongoDb with special conditions and limit of records and also sorted ascending  
+        try:
+            return self.mng_db[self.collection_name].find({"$and": [{"score": {"$gt": 0}}, {"unix_int": {"$gt": lastUnit}}, {"parent":{"$ne": None}}]}).limit(limit).sort([("unix_int", 1)])
+        except Exception as e:
+            raise e
  
  
  
